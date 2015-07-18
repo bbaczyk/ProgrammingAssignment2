@@ -1,0 +1,17 @@
+{
+    "contents" : "## Function to cache a matrix inversion\n## Example calling sequence\n##    mat_x <- makeCacheMatrix(matrix(c(2:5),nrow=2,ncol=2))\n##    cacheSolve(mat_x) ## First time, calc inverse\n##    cacheSolve(mat_x) ## after first time, returns cached value\n\n\n## Initializes the functions for the given\n## matrix\n\nmakeCacheMatrix <- function(x = matrix()) {\n  inv <- NULL\n  set <- function(y) {\n    x <<- y\n    inv <<- NULL\n  }\n  get <- function() x\n  setinv <- function(inverse) inv <<- inverse\n  getinv <- function() inv\n  #\n  # return the list of functions and names\n  #\n  list(set = set, get = get, setinv = setinv, getinv = getinv)\n  \n}\n\n\n## First time function is invoked, the inverse is NULL (not populated)\n## So function calculates.  For all subsequesnt invocations, the cached inverse is returned, saving computation\n## Assumes all matrices are invertible\n\ncacheSolve <- function(x, ...) {\n  ## Return a matrix that is the inverse of 'x'\n  \n  inv <- x$getinv()\n  if(!is.null(inv)) {\n    message(\"getting cached matrix inverse\")\n    return(inv)\n  }\n  data <- x$get()\n  inv <- solve(data)\n  x$setinv(inv)\n  inv\n}\n",
+    "created" : 1437228438025.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3705053230",
+    "id" : "50EF573E",
+    "lastKnownWriteTime" : 1437228759,
+    "path" : "~/ProgrammingAssignment2/cachematrix.R",
+    "project_path" : "cachematrix.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
